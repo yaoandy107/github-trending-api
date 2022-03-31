@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "build": "tsc",
-    "start": "esno src/index.ts"
+    "start": "tsc && esno src/index.ts"
   },
   "author": "",
   "license": "MIT",
