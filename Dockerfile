@@ -9,10 +9,10 @@ USER node
 FROM node:16-alpine
 ENV NODE_ENV production
 WORKDIR /app
-COPY package* ./
+COPY --chown=node:node package* ./
 COPY --from=builder /app/build ./build
 RUN npm ci --prod
 USER node
 
 EXPOSE 3000
-CMD "node" "build/index.js"
+CMD "node" "./build/index.js"
