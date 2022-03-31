@@ -3,8 +3,8 @@ FROM node:16-alpine AS builder
 WORKDIR /app
 COPY --chown=node:node . /app
 RUN npm ci
-USER node
 RUN npm run build
+USER node
 
 FROM node:16-alpine
 ENV NODE_ENV production
