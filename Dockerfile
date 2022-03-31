@@ -5,3 +5,4 @@ COPY --chown=node:node . /usr/src/app
 RUN npm ci --prod
 USER node
 CMD "npm" "start"
+EXPOSE 3000
