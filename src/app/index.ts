@@ -8,7 +8,7 @@ export const createServer = async () => {
         trustProxy: true,
     })
 
-    server.register(repoRouter, { prefix: '/api/repo' })
+    server.register(repoRouter, { prefix: '/repo' })
 
     const port: number = Number(process.env.PORT) || 3000
     server.listen({ host: '0.0.0.0', port: port }, (err, address) => {
