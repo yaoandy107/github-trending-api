@@ -1,7 +1,7 @@
 export interface Repo {
     author: string,
     name: string
-    desciption: string|null,
+    description: string|null,
     stars: number,
     forks: number,
     starsInRange: number
