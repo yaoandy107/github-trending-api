@@ -1,18 +1,19 @@
-# Stage 1
-FROM node:16-alpine AS builder
+FROM node:18-alpine AS builder
 WORKDIR /app
+RUN npm install -g pnpm
 COPY --chown=node:node . /app
-RUN npm ci
-RUN npm run build
+RUN pnpm install --frozen-lockfile
+RUN pnpm build
 USER node
 
-FROM node:16-alpine
+FROM node:18-alpine
 ENV NODE_ENV production
 WORKDIR /app
-COPY --chown=node:node package* ./
-COPY --from=builder /app/build ./build
-RUN npm ci --prod
+RUN npm install -g pnpm
+COPY --chown=node:node package.json pnpm-lock.yaml ./
+COPY --from=builder /app/dist ./dist
+RUN pnpm install --frozen-lockfile --prod
 USER node
 
 EXPOSE 3000
-CMD "node" "./build/index.js"
+CMD "npm" "run" "start:prod"
