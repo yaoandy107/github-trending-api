@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { Repo as GithubRepo } from '../model/repo';
 import * as cheerio from 'cheerio';
 import axios from 'axios';
 import { URL_GIHUB_TRENDING } from '../../constants';
 import { DateRange } from '../model/date-range';
-import { ProgrammingLanguage } from '../model/language';
+import { ProgrammingLanguage } from '../model/dto/language.dto';
+import { Repo } from '../model/dto/repo.dto';
 
 @Injectable()
 export class GithubService {
@@ -12,11 +12,11 @@ export class GithubService {
     language = '',
     dateRange: DateRange = DateRange.TODAY,
     spokenLanguage = 'any',
-  ): Promise<GithubRepo[]> {
+  ): Promise<Repo[]> {
     const url = `${URL_GIHUB_TRENDING}/${language}?since=${dateRange}&spoken_language_code=${spokenLanguage}`;
     console.log(`Fetching ${url}.`);
     const response = await axios.get(url);
-    const repos: GithubRepo[] = [];
+    const repos: Repo[] = [];
     const $ = cheerio.load(response.data);
     $('article').each((index, element) => {
       const title = $('h1.h3 a', element).text().replace(/\s/g, '');
@@ -48,7 +48,7 @@ export class GithubService {
           .replace(',', '')
           .split(' ')[0],
       );
-      const repo: GithubRepo = {
+      const repo: Repo = {
         author,
         name,
         description,
