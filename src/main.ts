@@ -12,7 +12,9 @@ async function bootstrap() {
     AppModule,
     new FastifyAdapter(),
   );
-
+  app.enableCors({
+  origin: ['http://localhost:3000'],
+  });
   const config = new DocumentBuilder()
     .setTitle('GitHub Trending API')
     .setDescription('The GitHub Trending API')
