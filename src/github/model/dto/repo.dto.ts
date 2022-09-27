@@ -36,4 +36,9 @@ export class Repo {
     type: Number,
   })
   starsInRange: number;
+
+  @ApiProperty({
+    type: String,
+  })
+  link: string;
 }

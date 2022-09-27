@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as cheerio from 'cheerio';
 import axios from 'axios';
-import { URL_GIHUB_TRENDING } from '../../constants';
+import { URL_GIHUB_TRENDING, URL_GITHUB } from '../../constants';
 import { DateRange } from '../model/date-range';
 import { ProgrammingLanguage } from '../model/dto/language.dto';
 import { Repo } from '../model/dto/repo.dto';
@@ -19,7 +19,9 @@ export class GithubService {
     const repos: Repo[] = [];
     const $ = cheerio.load(response.data);
     $('article').each((index, element) => {
-      const title = $('h1.h3 a', element).text().replace(/\s/g, '');
+      const titleElement = $('h1.h3 a', element);
+      const link = `${URL_GITHUB}${titleElement.attr('href')}`;
+      const title = titleElement.text().replace(/\s/g, '');
       const author = title.split('/')[0];
       const name = title.split('/')[1];
       const description = $(element).find('p').text().trim();
@@ -56,6 +58,7 @@ export class GithubService {
         stars,
         forks,
         starsInRange,
+        link,
       };
 
       repos.push(repo);
