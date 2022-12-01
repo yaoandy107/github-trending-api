@@ -11,7 +11,7 @@ export class GithubService {
   async getTrendingRepos(
     language = '',
     dateRange: DateRange = DateRange.TODAY,
-    spokenLanguage = 'any',
+    spokenLanguage = '',
   ): Promise<Repo[]> {
     const url = `${URL_GIHUB_TRENDING}/${language}?since=${dateRange}&spoken_language_code=${spokenLanguage}`;
     console.log(`Fetching ${url}.`);
