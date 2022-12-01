@@ -37,7 +37,7 @@ export class GithubService {
       );
       const forks = parseInt(
         $(element)
-          .find(`[href="/${title.replace(/\s/g, '')}/network/members.${name}"]`)
+          .find(`[href="/${title.replace(/\s/g, '')}/network/members"]`)
           .text()
           .trim()
           .replace(',', ''),
