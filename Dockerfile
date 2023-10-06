@@ -9,7 +9,7 @@ USER node
 FROM node:18-alpine
 ENV NODE_ENV production
 WORKDIR /app
-RUN npm install -g pnpm
+RUN npm install -g pnpm@v8
 COPY --chown=node:node package.json pnpm-lock.yaml ./
 COPY --from=builder /app/dist ./dist
 RUN pnpm install --frozen-lockfile --prod
